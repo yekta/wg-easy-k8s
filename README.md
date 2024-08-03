@@ -43,4 +43,4 @@ destination_ips = []
 
 ### Change the domain
 
-You need to change `wg.mydomain.com` in `ingress-ui.yaml` to your own domain.
+You need to change `wg.mydomain.com` in `ingress-ui.yaml` to your own domain. This is where you'll access the dashboard.
