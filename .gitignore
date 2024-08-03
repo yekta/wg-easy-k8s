@@ -1,0 +1,33 @@
+# Ignore environment files
+.env
+
+# Ignore build artifacts
+build/
+
+# Ignore dependencies
+node_modules/
+
+# Ignore IDE files
+.vscode/
+.idea/
+
+# Ignore logs
+*.log
+
+# Ignore compiled binaries
+*.exe
+*.dll
+*.so
+
+# Ignore package lock files
+package-lock.json
+yarn.lock
+
+# Ignore temporary files
+*.tmp
+*.swp
+*.bak
+
+# Ignore system files
+.DS_Store
+Thumbs.db

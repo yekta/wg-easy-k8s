@@ -1,0 +1,70 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: wireguard
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wg-easy
+  namespace: wireguard
+  labels:
+    app: wg-easy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: wg-easy
+  template:
+    metadata:
+      labels:
+        app: wg-easy
+    spec:
+      containers:
+        - name: wg-easy
+          image: ghcr.io/wg-easy/wg-easy
+          ports:
+            - name: wgserver
+              containerPort: 51820
+              protocol: UDP
+            - name: wgdashboard
+              containerPort: 51821
+              protocol: TCP
+          env:
+            - name: WG_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: wg-easy-secrets
+                  key: WG_HOST
+            - name: UI_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: wg-easy-secrets
+                  key: UI_HOST
+            - name: PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: wg-easy-secrets
+                  key: PASSWORD
+            - name: PORT
+              valueFrom:
+                secretKeyRef:
+                  name: wg-easy-secrets
+                  key: PORT
+            - name: WG_PORT
+              valueFrom:
+                secretKeyRef:
+                  name: wg-easy-secrets
+                  key: WG_PORT
+          securityContext:
+            privileged: true
+            capabilities:
+              add:
+                - NET_ADMIN
+          volumeMounts:
+            - name: wg-easy-data
+              mountPath: /etc/wireguard
+      volumes:
+        - name: wg-easy-data
+          persistentVolumeClaim:
+            claimName: wg-easy-pvc

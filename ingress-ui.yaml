@@ -1,0 +1,28 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: wg-easy-dashboard-ingress
+  namespace: wireguard
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+      real_ip_header CF-Connecting-IP;
+    nginx.ingress.kubernetes.io/proxy-body-size: 10m
+    nginx.ingress.kubernetes.io/upstream-hash-by: $realip_remote_addr
+spec:
+  tls:
+    - hosts:
+        - dashboard.test.com
+      secretName: wg-dashboard-tls
+  rules:
+    - host: dashboard.test.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: wg-easy-tcp
+                port:
+                  number: 51821
