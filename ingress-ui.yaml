@@ -13,10 +13,10 @@ metadata:
 spec:
   tls:
     - hosts:
-        - wgdashboard.test.com
+        - wg.mydomain.com
       secretName: wg-dashboard-tls
   rules:
-    - host: wgdashboard.test.com
+    - host: wg.mydomain.com
       http:
         paths:
           - path: /

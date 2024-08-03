@@ -25,7 +25,7 @@ spec:
           image: ghcr.io/wg-easy/wg-easy
           ports:
             - name: wgserver
-              containerPort: 51820
+              containerPort: 30051
               protocol: UDP
             - name: wgdashboard
               containerPort: 51821
