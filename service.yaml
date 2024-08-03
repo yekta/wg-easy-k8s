@@ -6,12 +6,13 @@ metadata:
 spec:
   selector:
     app: wg-easy
-  type: ClusterIP
+  type: NodePort
   ports:
     - name: wgserver
       port: 51820
       targetPort: 51820
       protocol: UDP
+      nodePort: 30051 # You can specify a port in the range 30000-32767, or let Kubernetes assign one
 
 ---
 apiVersion: v1
