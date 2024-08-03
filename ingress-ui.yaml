@@ -8,15 +8,15 @@ metadata:
     cert-manager.io/cluster-issuer: "letsencrypt-prod"
     nginx.ingress.kubernetes.io/configuration-snippet: |
       real_ip_header CF-Connecting-IP;
-    nginx.ingress.kubernetes.io/proxy-body-size: 10m
+    nginx.ingress.kubernetes.io/proxy-body-size: 100m
     nginx.ingress.kubernetes.io/upstream-hash-by: $realip_remote_addr
 spec:
   tls:
     - hosts:
-        - dashboard.test.com
+        - wgdashboard.test.com
       secretName: wg-dashboard-tls
   rules:
-    - host: dashboard.test.com
+    - host: wgdashboard.test.com
       http:
         paths:
           - path: /
